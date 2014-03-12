@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Da Brain</title>
+    <meta charset="UTF-8">
+    <style>
+        #wrap {
+            width: 960px;
+            margin: 5px auto;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap">
+    <h1>Insane in the Membrane (Insane; in the Brain)</h1>
+</div><!-- close wrap -->
+
+<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="membrane.js"></script>
+<script>
+// on load
+$(function() {
+    var desc = 'So Fresh and <em>so</em> Clean. Mmmm... yeah.';
+    $('#wrap').append(fullMonty({'X': 'x.mp4', 'Y': 'y.mp4', 'Z' : 'z.mp4'},desc));
+});
+</script>
+</body>
+</html>
