@@ -158,7 +158,7 @@ function setupCSS() {
                 float: left;\
                 margin: 5px 0;\
                 height: 350px;\
-                width: 470px;\
+                width: calc(50% - 5px);\
                 position: relative;\
             }\
             .quad:nth-child(odd) {\
