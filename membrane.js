@@ -173,11 +173,11 @@ function setupCSS() {
                 margin: 0 3em;\
             }\
             .quad canvas {\
+                cursor: crosshair;\
                 position: absolute;\
                 z-index: 1;\
             }\
             .quad video {\
-                cursor: crosshair;\
                 display: block;\
                 margin: auto;\
             }\
