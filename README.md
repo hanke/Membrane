@@ -14,7 +14,7 @@ membrane.js, and then calling "fullyMonty()".
 
 ```
 var desc = 'A description.';
-var vid_array = {'X': 'x.mp4', 'Y': 'y.mp4', 'Z' : 'z.mp4'};
+var vid_array = { 'a':['X','x.mp4'], 'b':['Y','y.mp4'], 'c':['Z','z.mp4'] };
 $('body').append(fullMonty(vid_array,desc));
 ```
 

@@ -13,8 +13,8 @@ function fullMonty(brain_array,desc) {
     });
 
     // loop over each video submitted
-    $.each(brain_array, function(title,src) {
-        the_horse.append(buildQuad(title,src)); // add to meta div
+    $.each(brain_array, function(view,src_array) {
+        the_horse.append(buildQuad(view,src_array[0],src_array[1])); // add to meta div
     });
 
     // build description Quad
@@ -45,10 +45,10 @@ function buildOverlay(vid) {
 
     return $(new_canvas);
 }
-function buildQuad(title,src) {
+function buildQuad(view,title,src) {
     var new_quad = $('<div/>', { class: 'quad' });
     new_quad.append(buildHeader(title)); // build header
-    var new_vid = buildVideo(src); // create the video element
+    var new_vid = buildVideo(view,src); // create the video element
 
     // we need video info to build the canvas, so only do so once the video is loaded
     new_vid.on('loadeddata', function() {
@@ -61,10 +61,10 @@ function buildQuad(title,src) {
             var canvas_list = {};
 
             var grand_div = $(this).parent().parent();
-            $(grand_div).find('canvas').each(function(index, canvas) {
-                var title = $(canvas).prev("h2").text();
-                canvas_list[title] = canvas;
-                video_list[title] = $(canvas).next("video")[0];
+            $(grand_div).find('video').each(function(index,video) {
+                var view = $(video).attr("data-view");
+                canvas_list[view] = $(video).prev("canvas")[0];
+                video_list[view] = video;
             });
 
             mythicalMagic(this,e,canvas_list,video_list);
@@ -80,8 +80,8 @@ function buildQuad(title,src) {
 
     return $(new_quad);
 }
-function buildVideo(name) {
-    var new_video = $('<video/>', { src: name });
+function buildVideo(view,src) {
+    var new_video = $('<video/>', { 'src': src, 'data-view': view });
     return $(new_video);
 }
 
@@ -119,32 +119,32 @@ function mythicalMagic(canvas,cursor,canvas_list,video_list) {
         clearCanvas(val);
     });
 
-    var this_title = $(canvas).prev("h2").text();
+    var this_view = $(canvas).next("video").attr("data-view");
 
-    switch(this_title) {
-        case 'X':
+    switch(this_view) {
+        case 'a':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['Y'],'y',posX);
-            drawLine(canvas_list['Z'],'y',posY);
+            drawLine(canvas_list['b'],'y',posX);
+            drawLine(canvas_list['c'],'y',posY);
 
-            video_list['Y'].currentTime = posY / fps;
-            video_list['Z'].currentTime = posX / fps;
+            video_list['b'].currentTime = posY / fps;
+            video_list['c'].currentTime = posX / fps;
           break;
-        case 'Y':
+        case 'b':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['X'],'y',posX);
-            drawLine(canvas_list['Z'],'x',posY);
+            drawLine(canvas_list['a'],'y',posX);
+            drawLine(canvas_list['c'],'x',posY);
 
-            video_list['X'].currentTime = posY / fps;
-            video_list['Z'].currentTime = posX / fps;
+            video_list['a'].currentTime = posY / fps;
+            video_list['c'].currentTime = posX / fps;
           break;
-        case 'Z':
+        case 'c':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['X'],'x',posX);
-            drawLine(canvas_list['Y'],'x',posY);
+            drawLine(canvas_list['a'],'x',posX);
+            drawLine(canvas_list['b'],'x',posY);
 
-            video_list['X'].currentTime = posY / fps;
-            video_list['Y'].currentTime = posX / fps;
+            video_list['a'].currentTime = posY / fps;
+            video_list['b'].currentTime = posX / fps;
           break;
     }
 }
