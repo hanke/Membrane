@@ -173,18 +173,7 @@ function setupCSS() {
         .html("\
             .quad {\
                 float: left;\
-                margin: 5px 0;\
-                width: calc(50% - 5px);\
                 position: relative;\
-            }\
-            .quad:nth-child(odd) {\
-                margin-right: 10px;\
-            }\
-            .quad h2 {\
-                text-align: center;\
-            }\
-            .quad p {\
-                margin: 0 3em;\
             }\
             .quad canvas {\
                 cursor: crosshair;\
