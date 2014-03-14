@@ -172,7 +172,6 @@ function setupCSS() {
         .prop("type", "text/css")
         .html("\
             .quad {\
-                background: black;\
                 float: left;\
                 margin: 5px 0;\
                 width: calc(50% - 5px);\
@@ -182,11 +181,9 @@ function setupCSS() {
                 margin-right: 10px;\
             }\
             .quad h2 {\
-                color: white;\
                 text-align: center;\
             }\
             .quad p {\
-                color: white;\
                 margin: 0 3em;\
             }\
             .quad canvas {\
