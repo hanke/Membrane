@@ -120,28 +120,29 @@ function mythicalMagic(canvas,cursor,canvas_list,video_list) {
     });
 
     var this_view = $(canvas).next("video").attr("data-view");
+    var posThis = video_list[this_view].currentTime * fps;
 
     switch(this_view) {
         case 'a':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['b'],'y',posX);
-            drawLine(canvas_list['c'],'y',posY);
+            drawLine(canvas_list['b'],'x',posY); drawLine(canvas_list['b'],'y',posThis);
+            drawLine(canvas_list['c'],'x',posX); drawLine(canvas_list['c'],'y',posThis);
 
-            video_list['b'].currentTime = posY / fps;
-            video_list['c'].currentTime = posX / fps;
+            video_list['b'].currentTime = posX / fps;
+            video_list['c'].currentTime = posY / fps;
           break;
         case 'b':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['a'],'y',posX);
-            drawLine(canvas_list['c'],'x',posY);
+            drawLine(canvas_list['a'],'x',posY); drawLine(canvas_list['a'],'y',posThis);
+            drawLine(canvas_list['c'],'y',posX); drawLine(canvas_list['c'],'x',posThis);
 
-            video_list['a'].currentTime = posY / fps;
-            video_list['c'].currentTime = posX / fps;
+            video_list['a'].currentTime = posX / fps;
+            video_list['c'].currentTime = posY / fps;
           break;
         case 'c':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['a'],'x',posX);
-            drawLine(canvas_list['b'],'x',posY);
+            drawLine(canvas_list['a'],'y',posY); drawLine(canvas_list['a'],'x',posThis);
+            drawLine(canvas_list['b'],'y',posX); drawLine(canvas_list['b'],'x',posThis);
 
             video_list['a'].currentTime = posY / fps;
             video_list['b'].currentTime = posX / fps;
