@@ -17,8 +17,10 @@ function fullMonty(brain_array,desc) {
         the_horse.append(buildQuad(view,src_array[0],src_array[1])); // add to meta div
     });
 
-    // build description Quad
-    the_horse.append(buildDescription(desc));
+    if (desc != '') {
+        // build description Quad
+        the_horse.append(buildDescription(desc));
+    }
 
     return $(the_horse);
 }
