@@ -110,6 +110,15 @@ function drawLine(canvas,axis,pos) {
     }
 }
 
+function esotericSeek(video, esoteric_pos){
+    var esoteric_time = esoteric_pos / fps;
+    if (esoteric_time > video.duration / 2) {
+        video.currentTime = esoteric_time - (video.duration / 2);
+    } else {
+        video.currentTime = esoteric_time + (video.duration / 2);
+    }
+}
+
 function mythicalMagic(canvas,cursor,canvas_list,video_list) {
     var posX = cursor.pageX - $(canvas).offset().left;
     var posY = cursor.pageY - $(canvas).offset().top;
@@ -120,32 +129,38 @@ function mythicalMagic(canvas,cursor,canvas_list,video_list) {
     });
 
     var this_view = $(canvas).next("video").attr("data-view");
-    var posThis = video_list[this_view].currentTime * fps;
+    var posThis;
+    var video = video_list[this_view];
+    if (video.currentTime > video.duration / 2) {
+        posThis = (video.currentTime - (video.duration / 2)) * fps;
+    } else {
+        posThis = (video.currentTime + (video.duration / 2)) * fps; 
+    }
 
     switch(this_view) {
         case 'a':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
             drawLine(canvas_list['b'],'x',posY); drawLine(canvas_list['b'],'y',posThis);
-            drawLine(canvas_list['c'],'x',posX); drawLine(canvas_list['c'],'y',posThis);
+            drawLine(canvas_list['c'],'y',posX); drawLine(canvas_list['c'],'x',canvas_list['c'].height - posThis);
 
-            video_list['b'].currentTime = posX / fps;
-            video_list['c'].currentTime = posY / fps;
+            esotericSeek(video_list['b'], posX);
+            esotericSeek(video_list['c'], canvas.height - posY);
           break;
         case 'b':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
             drawLine(canvas_list['a'],'x',posY); drawLine(canvas_list['a'],'y',posThis);
-            drawLine(canvas_list['c'],'y',posX); drawLine(canvas_list['c'],'x',posThis);
+            drawLine(canvas_list['c'],'x',canvas.width - posX); drawLine(canvas_list['c'],'y',posThis);
 
-            video_list['a'].currentTime = posX / fps;
-            video_list['c'].currentTime = posY / fps;
+            esotericSeek(video_list['a'], posX);
+            esotericSeek(video_list['c'], canvas.height - posY);
           break;
         case 'c':
             drawLine(canvas,'x',posY); drawLine(canvas,'y',posX);
-            drawLine(canvas_list['a'],'y',posY); drawLine(canvas_list['a'],'x',posThis);
-            drawLine(canvas_list['b'],'y',posX); drawLine(canvas_list['b'],'x',posThis);
+            drawLine(canvas_list['a'],'y',posX); drawLine(canvas_list['a'],'x',canvas_list['a'].height - posThis);
+            drawLine(canvas_list['b'],'y',canvas.height - posY); drawLine(canvas_list['b'],'x',canvas_list['b'].height - posThis);
 
-            video_list['a'].currentTime = posY / fps;
-            video_list['b'].currentTime = posX / fps;
+            esotericSeek(video_list['a'], canvas.height - posY);
+            esotericSeek(video_list['b'], posX);
           break;
     }
 }
@@ -158,7 +173,6 @@ function setupCSS() {
                 background: black;\
                 float: left;\
                 margin: 5px 0;\
-                height: 350px;\
                 width: calc(50% - 5px);\
                 position: relative;\
             }\
