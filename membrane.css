@@ -1,0 +1,15 @@
+.quad {
+    color: white;
+    margin: 5px 0;
+    background: black;
+    width: calc(50% - 5px);
+}
+.quad:nth-child(odd) {
+    margin-right: 10px;
+}
+.quad h2 {
+    text-align: center;
+}
+.quad p {
+    margin: 0 3em;
+}
